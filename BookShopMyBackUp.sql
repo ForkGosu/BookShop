@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.29, for Win64 (x86_64)
 --
--- Host: localhost    Database: bookshop
+-- Host: localhost    Database: BookShop
 -- ------------------------------------------------------
 -- Server version	8.0.29
 
@@ -14,6 +14,29 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `authinfo`
+--
+
+DROP TABLE IF EXISTS `authinfo`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `authinfo` (
+  `auth_email` varchar(200) NOT NULL,
+  `auth_code` varchar(200) NOT NULL,
+  PRIMARY KEY (`auth_email`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `authinfo`
+--
+
+LOCK TABLES `authinfo` WRITE;
+/*!40000 ALTER TABLE `authinfo` DISABLE KEYS */;
+/*!40000 ALTER TABLE `authinfo` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `cart`
@@ -30,7 +53,7 @@ CREATE TABLE `cart` (
   KEY `pd_num_fk` (`cart_pd_num`),
   CONSTRAINT `pd_num_fk` FOREIGN KEY (`cart_pd_num`) REFERENCES `product` (`pd_num`),
   CONSTRAINT `user_num_fk` FOREIGN KEY (`cart_user_num`) REFERENCES `user` (`user_num`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -39,6 +62,7 @@ CREATE TABLE `cart` (
 
 LOCK TABLES `cart` WRITE;
 /*!40000 ALTER TABLE `cart` DISABLE KEYS */;
+INSERT INTO `cart` VALUES (3,53,1),(3,56,1);
 /*!40000 ALTER TABLE `cart` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -56,7 +80,7 @@ CREATE TABLE `center_ad` (
   PRIMARY KEY (`ad_index`),
   KEY `center_pd_fk` (`ad_pd_num`),
   CONSTRAINT `center_pd_fk` FOREIGN KEY (`ad_pd_num`) REFERENCES `product` (`pd_num`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -83,7 +107,7 @@ CREATE TABLE `interest` (
   KEY `int_pd_num_fk` (`inter_pd_num`),
   CONSTRAINT `int_pd_num_fk` FOREIGN KEY (`inter_pd_num`) REFERENCES `product` (`pd_num`),
   CONSTRAINT `int_user_num_fk` FOREIGN KEY (`inter_user_num`) REFERENCES `user` (`user_num`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -108,7 +132,7 @@ CREATE TABLE `main_ad` (
   `ad_file` varchar(50) NOT NULL,
   `ad_subject` varchar(10) NOT NULL,
   PRIMARY KEY (`ad_index`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -117,7 +141,7 @@ CREATE TABLE `main_ad` (
 
 LOCK TABLES `main_ad` WRITE;
 /*!40000 ALTER TABLE `main_ad` DISABLE KEYS */;
-INSERT INTO `main_ad` VALUES (1,'이벤트_9월의 사은품.jpg','9월의 사은품'),(3,'이벤트_대학생X취준생1.jpg','대학생X취준생');
+INSERT INTO `main_ad` VALUES (1,'이벤트_9월의 사은품.jpg','9월의 사은품'),(3,'필수 그래픽.png','sadas');
 /*!40000 ALTER TABLE `main_ad` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -138,7 +162,7 @@ CREATE TABLE `ord` (
   PRIMARY KEY (`order_num`),
   KEY `ord_email_fk` (`order_user_email`),
   CONSTRAINT `ord_email_fk` FOREIGN KEY (`order_user_email`) REFERENCES `user` (`user_email`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -167,7 +191,7 @@ CREATE TABLE `orddetail` (
   KEY `ord_pdn_fk` (`order_pd_num`),
   CONSTRAINT `ord_num_fk` FOREIGN KEY (`order_num`) REFERENCES `ord` (`order_num`),
   CONSTRAINT `ord_pdn_fk` FOREIGN KEY (`order_pd_num`) REFERENCES `product` (`pd_num`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -178,6 +202,28 @@ LOCK TABLES `orddetail` WRITE;
 /*!40000 ALTER TABLE `orddetail` DISABLE KEYS */;
 INSERT INTO `orddetail` VALUES (2,55,1,17000),(2,54,1,13800),(4,56,1,16500),(4,39,1,11500),(5,17,1,18000),(5,14,1,14000),(1,48,2,25000),(2,48,2,25000),(3,48,2,25000),(4,48,2,25000),(5,48,2,25000),(6,48,2,25000),(7,48,2,25000),(8,48,2,25000),(9,48,2,25000),(10,48,2,25000),(11,48,2,25000),(12,48,2,25000),(13,48,2,25000),(14,48,2,25000),(15,48,2,25000),(16,48,2,25000),(17,48,2,25000),(18,48,2,25000),(19,48,2,25000),(20,48,2,25000),(21,48,2,25000),(22,48,2,25000),(23,48,2,25000),(24,48,2,25000),(25,48,2,25000),(26,48,2,25000),(27,48,2,25000),(28,48,2,25000),(29,48,2,25000),(30,48,2,25000),(31,48,2,25000),(32,48,2,25000),(33,48,2,25000),(34,48,2,25000),(35,48,2,25000),(36,48,2,25000),(37,48,2,25000),(38,48,2,25000),(39,48,2,25000),(40,48,2,25000);
 /*!40000 ALTER TABLE `orddetail` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `popup`
+--
+
+DROP TABLE IF EXISTS `popup`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `popup` (
+  `popup_pd_num` int DEFAULT NULL,
+  `popup_file` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `popup`
+--
+
+LOCK TABLES `popup` WRITE;
+/*!40000 ALTER TABLE `popup` DISABLE KEYS */;
+/*!40000 ALTER TABLE `popup` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -199,7 +245,7 @@ CREATE TABLE `product` (
   `pd_count` int NOT NULL,
   `pd_date` date NOT NULL,
   PRIMARY KEY (`pd_num`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -231,7 +277,7 @@ CREATE TABLE `qna` (
   `qna_rep` varchar(200) DEFAULT NULL,
   `qna_accesspermission` varchar(10) DEFAULT 'public',
   PRIMARY KEY (`qna_num`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -264,7 +310,7 @@ CREATE TABLE `review` (
   KEY `review_pd_num` (`review_pd_num`),
   CONSTRAINT `review_ibfk_1` FOREIGN KEY (`review_user_num`) REFERENCES `user` (`user_num`),
   CONSTRAINT `review_ibfk_2` FOREIGN KEY (`review_pd_num`) REFERENCES `product` (`pd_num`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -273,7 +319,7 @@ CREATE TABLE `review` (
 
 LOCK TABLES `review` WRITE;
 /*!40000 ALTER TABLE `review` DISABLE KEYS */;
-INSERT INTO `review` VALUES (1,1,56,'정말 유익한 책이에요','제곧내',3.5,'2022-09-06'),(2,1,39,'정말 유익한 책이에요!!','제곧내',4.5,'2022-09-06');
+INSERT INTO `review` VALUES (1,1,56,'정말 유익한 책이에요','제곧내',3.5,'2022-09-06'),(2,1,39,'정말 유익한 책이에요!!','제곧내',4.5,'2022-09-06'),(3,3,17,'아이우에오','카키쿠케코',4.5,'2022-09-18');
 /*!40000 ALTER TABLE `review` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -300,7 +346,7 @@ CREATE TABLE `user` (
   `user_auth` varchar(1) NOT NULL,
   PRIMARY KEY (`user_num`),
   UNIQUE KEY `user_email` (`user_email`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -322,4 +368,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-09-07  9:16:39
+-- Dump completed on 2022-09-20 21:17:13
